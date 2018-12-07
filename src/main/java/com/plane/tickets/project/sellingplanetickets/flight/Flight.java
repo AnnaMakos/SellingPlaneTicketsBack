@@ -1,22 +1,21 @@
 package com.plane.tickets.project.sellingplanetickets.flight;
 
+import com.plane.tickets.project.sellingplanetickets.airport.Airport;
+import com.plane.tickets.project.sellingplanetickets.connections.Connections;
 import com.plane.tickets.project.sellingplanetickets.plane.Plane;
+import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "flight")
 public class Flight {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flight_id")
     private int flightID;
-
-    @Column(name = "connection_id")
-    private int connectionID;
-
-    @Column(name = "plane_id")
-    private int planeID;
 
     @Column(name = "departure_date")
     private String departureDate;
@@ -33,19 +32,47 @@ public class Flight {
     @Column(name = "ticket_cost")
     private int ticketCost;
 
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="connection_id")
+    private Connections connection;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="plane_id")
+    private Plane plane;
+
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Ticket> tickets;
+
+
 
     public Flight() {
 
     }
 
-    public Flight(int connectionID, int planeID, String departureDate, String departureTime, String arrivalDate, String arrivalTime, int ticketCost) {
-        this.connectionID = connectionID;
-        this.planeID = planeID;
+    public Flight(int connectionID, int planeID, String departureDate, String departureTime, String arrivalDate, String arrivalTime, int ticketCost, Connections connection, Plane plane) {
         this.departureDate = departureDate;
         this.departureTime = departureTime;
         this.arrivalDate = arrivalDate;
         this.arrivalTime = arrivalTime;
         this.ticketCost = ticketCost;
+        this.connection = connection;
+        this.plane = plane;
+    }
+
+    public Connections getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connections connection) {
+        this.connection = connection;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
     }
 
     public int getFlightID() {
@@ -54,22 +81,6 @@ public class Flight {
 
     public void setFlightID(int flightID) {
         this.flightID = flightID;
-    }
-
-    public int getConnectionID() {
-        return connectionID;
-    }
-
-    public void setConnectionID(int connectionID) {
-        this.connectionID = connectionID;
-    }
-
-    public int getPlaneID() {
-        return planeID;
-    }
-
-    public void setPlaneID(int planeID) {
-        this.planeID = planeID;
     }
 
     public String getDepartureDate() {
@@ -116,8 +127,8 @@ public class Flight {
     public String toString() {
         return "Flight{" +
                 "flightID=" + flightID +
-                ", connectionID=" + connectionID +
-                ", planeID=" + planeID +
+                ", connectionID=" +
+                ", planeID=" +
                 ", departureDate='" + departureDate + '\'' +
                 ", departureTime='" + departureTime + '\'' +
                 ", arrivalDate='" + arrivalDate + '\'' +

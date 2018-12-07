@@ -1,7 +1,7 @@
 package com.plane.tickets.project.sellingplanetickets.airport;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AirportRepository extends CrudRepository<Airport, Integer> {
+public interface AirportRepository extends JpaRepository<Airport, Integer> {
 }
 

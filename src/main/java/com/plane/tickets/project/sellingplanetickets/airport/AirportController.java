@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 public class AirportController {
     @Autowired
     private AirportService airportService;
@@ -17,17 +18,17 @@ public class AirportController {
         return airportService.getAllAirports();
     }
 
-    @RequestMapping("/airport/{id}")
+    @RequestMapping("/airports/{id}")
     public Airport getAirport(@PathVariable int id) {
         return airportService.getAirport(id);
     }
 
-    @PostMapping(value = "/airports", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/airports")
     public void addAirport(@RequestBody Airport airport) {
         airportService.addAirport(airport);
     }
 
-    @PutMapping(value = "/airports/{id}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PutMapping(value = "/airports/{id}")
     public void updateAirport(@RequestBody Airport airport, @PathVariable int id) {
         airportService.updateAirport(airport, id);
     }

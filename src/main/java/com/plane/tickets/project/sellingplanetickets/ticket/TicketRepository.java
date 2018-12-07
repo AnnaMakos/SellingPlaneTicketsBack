@@ -1,7 +1,8 @@
 package com.plane.tickets.project.sellingplanetickets.ticket;
 
-import org.springframework.data.repository.CrudRepository;
 
-public interface TicketRepository extends CrudRepository<Ticket, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
 }

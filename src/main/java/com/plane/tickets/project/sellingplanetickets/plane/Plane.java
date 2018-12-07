@@ -1,6 +1,9 @@
 package com.plane.tickets.project.sellingplanetickets.plane;
 
+import com.plane.tickets.project.sellingplanetickets.flight.Flight;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "plane")
@@ -14,7 +17,18 @@ public class Plane {
     @Column(name = "plane_name")
     private String planeName;
 
+    @OneToMany(mappedBy = "plane", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Flight> flights;
+
     public Plane() { }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
+    }
 
     public Plane(String planeName) {
         this.planeName = planeName;

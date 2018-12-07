@@ -1,12 +1,16 @@
 package com.plane.tickets.project.sellingplanetickets.users;
 
+import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
 public class Users {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private int userID;
 
@@ -28,8 +32,20 @@ public class Users {
     @Column(name="if_admin")
     private char ifAdmin;
 
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Ticket> tickets;
+
     public Users(){
 
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     public Users(String userName, String userSurname, String email, String userPassword, int phoneNumber, char ifAdmin) {

@@ -1,21 +1,20 @@
 package com.plane.tickets.project.sellingplanetickets.ticket;
 
 
+import com.plane.tickets.project.sellingplanetickets.flight.Flight;
+import com.plane.tickets.project.sellingplanetickets.users.Users;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket {
 
     @Id
-    @Column(name = "ticked_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
     private int ticketID;
-
-    @Column(name = "user_id")
-    private int userID;
-
-    @Column(name = "flight_id")
-    private int flightID;
 
     @Column(name = "ticket_cost")
     private double ticketCost;
@@ -29,41 +28,30 @@ public class Ticket {
     @Column(name = "place")
     private int place;
 
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="user_id")
+    private Users user;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="flight_id")
+    private Flight flight;
+
     public Ticket() {
     }
 
-    public Ticket(int userID, int flightID, double ticketCost, int category, int whichRow, int place) {
-        this.userID = userID;
-        this.flightID = flightID;
+    public Ticket(int userID, int flightID, double ticketCost, int category, int whichRow, int place, Users user, Flight flight) {
         this.ticketCost = ticketCost;
         this.category = category;
         this.whichRow = whichRow;
         this.place = place;
-    }
-
-    public int getTicketID() {
-        return ticketID;
+        this.user = user;
+        this.flight = flight;
     }
 
     public void setTicketID(int ticketID) {
         this.ticketID = ticketID;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public int getFlightID() {
-        return flightID;
-    }
-
-    public void setFlightID(int flightID) {
-        this.flightID = flightID;
-    }
 
     public double getTicketCost() {
         return ticketCost;
@@ -101,8 +89,6 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "ticketID=" + ticketID +
-                ", userID=" + userID +
-                ", flightID=" + flightID +
                 ", ticketCost=" + ticketCost +
                 ", category=" + category +
                 ", whichRow=" + whichRow +
