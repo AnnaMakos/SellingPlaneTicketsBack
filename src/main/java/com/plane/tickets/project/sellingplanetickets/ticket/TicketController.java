@@ -17,6 +17,17 @@ public class TicketController {
         return ticketService.getAllTickets();
     }
 
+    @RequestMapping("/users/{id}/tickets")
+    public List<Ticket> getAllTicketsByUser(@PathVariable int id) {
+        return ticketService.getAllTicketsByUser(id);
+    }
+
+    @RequestMapping("/flights/{id}/tickets")
+    public List<Ticket> getAllTicketsByFlight(@PathVariable int id) {
+        return ticketService.getAllTicketsByFlight(id);
+    }
+
+
     @RequestMapping("/tickets/{id}")
     public Ticket getTicket(@PathVariable int id) {
         return ticketService.getTicket(id);

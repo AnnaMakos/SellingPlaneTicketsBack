@@ -1,5 +1,6 @@
 package com.plane.tickets.project.sellingplanetickets.users;
 
+import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class UsersController {
         return usersService.getUsers(id);
     }
 
+
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void addUsers(@RequestBody Users users) {
         usersService.addUsers(users);
@@ -36,5 +38,6 @@ public class UsersController {
     public void deleteUsers(@PathVariable int id) {
         usersService.deleteUsers(id);
     }
+
 
 }

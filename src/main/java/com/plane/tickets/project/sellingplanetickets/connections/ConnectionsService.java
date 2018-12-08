@@ -1,5 +1,6 @@
 package com.plane.tickets.project.sellingplanetickets.connections;
 
+import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,18 @@ public class ConnectionsService {
 
     public void deleteConnections(int id) {
         connectionsRepository.deleteById(id);
+    }
+
+    public List<Connections> getConnectionsByArrivalAirport(int id) {
+        List<Connections> connections = new ArrayList<>();
+        connectionsRepository.findByArrivalAirportAirportID(id).forEach(connections::add);
+        return connections;
+    }
+
+    public List<Connections> getConnectionsByDepartureAirport(int id) {
+        List<Connections> connections = new ArrayList<>();
+        connectionsRepository.findByDepartureAirportAirportID(id).forEach(connections::add);
+        return connections;
     }
 
 }

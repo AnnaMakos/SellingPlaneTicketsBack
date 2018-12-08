@@ -17,6 +17,12 @@ public class TicketService {
         return tickets;
     }
 
+    public List<Ticket> getAllTicketsByUser(int userId) {
+        List<Ticket> tickets = new ArrayList<>();
+        ticketRepository.findByUserUserID(userId).forEach(tickets::add);
+        return tickets;
+    }
+
 
     public Ticket getTicket(int id) {
         return ticketRepository.findById(id).get();
@@ -32,5 +38,11 @@ public class TicketService {
 
     public void deleteTicket(int id) {
         ticketRepository.deleteById(id);
+    }
+
+    public List<Ticket> getAllTicketsByFlight(int id) {
+        List<Ticket> tickets = new ArrayList<>();
+        ticketRepository.findByFlightFlightID(id).forEach(tickets::add);
+        return tickets;
     }
 }

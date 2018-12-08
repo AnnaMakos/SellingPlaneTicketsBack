@@ -23,6 +23,17 @@ public class FlightController {
         return flightService.getFlight(id);
     }
 
+    @RequestMapping("/planes/{id}/flights")
+    public List<Flight> getAllFlightsByPlane(@PathVariable int id){
+        return flightService.getFlightsByPlane(id);
+    }
+
+
+    @RequestMapping("/connections/{id}/flights")
+    public List<Flight> getAllFlightsByConnection(@PathVariable int id){
+        return flightService.getFlightsByConnection(id);
+    }
+
     @PostMapping(value = "/flights", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void addFlight(@RequestBody Flight flight) {
         flightService.addFlight(flight);

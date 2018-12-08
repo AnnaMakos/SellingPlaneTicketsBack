@@ -33,4 +33,16 @@ public class FlightService {
     public void deleteFlight(int id) {
         flightRepository.deleteById(id);
     }
+
+    public List<Flight> getFlightsByPlane(int id) {
+        List<Flight> flights = new ArrayList<>();
+        flightRepository.findByPlanePlaneID(id).forEach(flights::add);
+        return flights;
+    }
+
+    public List<Flight> getFlightsByConnection(int id) {
+        List<Flight> flights = new ArrayList<>();
+        flightRepository.findByConnectionConnectionID(id).forEach(flights::add);
+        return flights;
+    }
 }
