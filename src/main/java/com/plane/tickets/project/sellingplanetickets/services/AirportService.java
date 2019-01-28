@@ -1,5 +1,7 @@
-package com.plane.tickets.project.sellingplanetickets.airport;
+package com.plane.tickets.project.sellingplanetickets.services;
 
+import com.plane.tickets.project.sellingplanetickets.model.Airport;
+import com.plane.tickets.project.sellingplanetickets.repositories.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,6 @@ public class AirportService {
         airportRepository.findAll().forEach(airports::add);
         return airports;
     }
-
 
     public Airport getAirport(int id) {
         return airportRepository.findById(id).get();

@@ -1,12 +1,15 @@
-package com.plane.tickets.project.sellingplanetickets.airport;
+package com.plane.tickets.project.sellingplanetickets.controllers;
 
 
+import com.plane.tickets.project.sellingplanetickets.model.Airport;
+import com.plane.tickets.project.sellingplanetickets.services.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class AirportController {
     @Autowired
@@ -14,7 +17,7 @@ public class AirportController {
 
 
     @RequestMapping("/airports")
-    public List<Airport> getAllPlanes() {
+    public List<Airport> getAllAirports() {
         return airportService.getAllAirports();
     }
 

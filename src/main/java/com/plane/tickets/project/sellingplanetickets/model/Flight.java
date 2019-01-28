@@ -1,11 +1,13 @@
-package com.plane.tickets.project.sellingplanetickets.flight;
+package com.plane.tickets.project.sellingplanetickets.model;
 
-import com.plane.tickets.project.sellingplanetickets.airport.Airport;
-import com.plane.tickets.project.sellingplanetickets.connections.Connections;
-import com.plane.tickets.project.sellingplanetickets.plane.Plane;
-import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.plane.tickets.project.sellingplanetickets.model.Connections;
+import com.plane.tickets.project.sellingplanetickets.model.Plane;
+import com.plane.tickets.project.sellingplanetickets.model.Seats;
+import com.plane.tickets.project.sellingplanetickets.model.Ticket;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,13 +20,13 @@ public class Flight {
     private int flightID;
 
     @Column(name = "departure_date")
-    private String departureDate;
+    private Date departureDate;
 
     @Column(name = "departure_time")
     private String departureTime;
 
     @Column(name = "arrival_date")
-    private String arrivalDate;
+    private Date arrivalDate;
 
     @Column(name = "arrival_time")
     private String arrivalTime;
@@ -32,24 +34,28 @@ public class Flight {
     @Column(name = "ticket_cost")
     private int ticketCost;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="connection_id")
     private Connections connection;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="plane_id")
     private Plane plane;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Ticket> tickets;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Seats> seats;
 
 
     public Flight() {
 
     }
 
-    public Flight(int connectionID, int planeID, String departureDate, String departureTime, String arrivalDate, String arrivalTime, int ticketCost, Connections connection, Plane plane) {
+    public Flight(int connectionID, int planeID, Date departureDate, String departureTime, Date arrivalDate, String arrivalTime, int ticketCost, Connections connection, Plane plane) {
         this.departureDate = departureDate;
         this.departureTime = departureTime;
         this.arrivalDate = arrivalDate;
@@ -83,11 +89,11 @@ public class Flight {
         this.flightID = flightID;
     }
 
-    public String getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
@@ -99,11 +105,11 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalDate() {
+    public Date getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(String arrivalDate) {
+    public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

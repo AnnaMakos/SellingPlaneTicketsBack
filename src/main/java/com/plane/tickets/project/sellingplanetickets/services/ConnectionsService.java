@@ -1,6 +1,7 @@
-package com.plane.tickets.project.sellingplanetickets.connections;
+package com.plane.tickets.project.sellingplanetickets.services;
 
-import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
+import com.plane.tickets.project.sellingplanetickets.model.Connections;
+import com.plane.tickets.project.sellingplanetickets.repositories.ConnectionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

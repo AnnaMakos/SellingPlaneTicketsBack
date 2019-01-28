@@ -1,12 +1,13 @@
-package com.plane.tickets.project.sellingplanetickets.connections;
+package com.plane.tickets.project.sellingplanetickets.controllers;
 
-import com.plane.tickets.project.sellingplanetickets.ticket.Ticket;
+import com.plane.tickets.project.sellingplanetickets.model.Connections;
+import com.plane.tickets.project.sellingplanetickets.services.ConnectionsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ConnectionsController {
     @Autowired
@@ -29,16 +30,16 @@ public class ConnectionsController {
 
     @RequestMapping("/departureairports/{id}/connections")
     public List<Connections> getAllDepartureAirportConnections(@PathVariable int id) {
-        return connectionsService.getConnectionsByArrivalAirport(id);
+        return connectionsService.getConnectionsByDepartureAirport(id);
     }
 
 
-    @PostMapping(value = "/connections", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/connections")
     public void addPlane(@RequestBody Connections connections) {
         connectionsService.addConnections(connections);
     }
 
-    @PutMapping(value = "/connections/{id}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PutMapping(value = "/connections/{id}")
     public void updateConnections(@RequestBody Connections connections, @PathVariable int id) {
         connectionsService.updateConnections(connections, id);
     }

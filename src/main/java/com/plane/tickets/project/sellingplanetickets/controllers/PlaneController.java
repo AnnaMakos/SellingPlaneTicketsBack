@@ -1,9 +1,12 @@
-package com.plane.tickets.project.sellingplanetickets.plane;
+package com.plane.tickets.project.sellingplanetickets.controllers;
+import com.plane.tickets.project.sellingplanetickets.model.Plane;
+import com.plane.tickets.project.sellingplanetickets.services.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class PlaneController {
 
@@ -25,12 +28,12 @@ public class PlaneController {
         planeService.addPlane(plane);
     }
 
-    @PutMapping(value = "/planes/{id}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PutMapping(value = "/planes/{id}")
     public void updatePlane(@RequestBody Plane plane, @PathVariable int id) {
         planeService.updatePlane(plane, id);
     }
 
-    @DeleteMapping(value = "/planes/{id}",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @DeleteMapping(value = "/planes/{id}")
     public void deletePlane(@PathVariable int id) {
         planeService.deletePlane(id);
     }

@@ -1,5 +1,7 @@
-package com.plane.tickets.project.sellingplanetickets.ticket;
+package com.plane.tickets.project.sellingplanetickets.services;
 
+import com.plane.tickets.project.sellingplanetickets.repositories.TicketRepository;
+import com.plane.tickets.project.sellingplanetickets.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class TicketService {
 
     public List<Ticket> getAllTicketsByUser(int userId) {
         List<Ticket> tickets = new ArrayList<>();
-        ticketRepository.findByUserUserID(userId).forEach(tickets::add);
+        ticketRepository.findByUserId(userId).forEach(tickets::add);
         return tickets;
     }
 
