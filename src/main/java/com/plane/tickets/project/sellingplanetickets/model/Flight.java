@@ -43,11 +43,11 @@ public class Flight {
     private Plane plane;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Seats> seats;
 
 

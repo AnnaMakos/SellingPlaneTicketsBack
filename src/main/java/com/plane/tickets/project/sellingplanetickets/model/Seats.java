@@ -25,7 +25,7 @@ public class Seats {
     private boolean isFree;
 
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="flight_id")
     private Flight flight;
 

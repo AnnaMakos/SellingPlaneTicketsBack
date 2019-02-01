@@ -2,6 +2,7 @@ package com.plane.tickets.project.sellingplanetickets.controllers;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -15,9 +16,12 @@ import com.plane.tickets.project.sellingplanetickets.model.User;
 import com.plane.tickets.project.sellingplanetickets.repositories.RoleRepository;
 import com.plane.tickets.project.sellingplanetickets.repositories.UserRepository;
 import com.plane.tickets.project.sellingplanetickets.security.jwt.JwtProvider;
+import com.plane.tickets.project.sellingplanetickets.services.NotificationService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,6 +40,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthRestAPIs {
 
+	private org.slf4j.Logger logger = LoggerFactory.getLogger(AuthRestAPIs.class);
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -50,6 +56,9 @@ public class AuthRestAPIs {
 
 	@Autowired
 	JwtProvider jwtProvider;
+
+	@Autowired
+	NotificationService notificationService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -107,6 +116,12 @@ public class AuthRestAPIs {
 
 		user.setRoles(roles);
 		userRepository.save(user);
+		try {
+			notificationService.sendNotification(user);
+		} catch (MailException e) {
+			logger.info("Error while sending e-mail :(   -> " + e.getMessage());
+		}
+
 
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}

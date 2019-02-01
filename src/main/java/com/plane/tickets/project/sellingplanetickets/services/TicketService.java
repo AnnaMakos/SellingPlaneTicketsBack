@@ -13,6 +13,7 @@ public class TicketService {
     @Autowired
     TicketRepository ticketRepository;
 
+
     public List<Ticket> getAllTickets() {
         List<Ticket> tickets = new ArrayList<>();
         ticketRepository.findAll().forEach(tickets::add);
