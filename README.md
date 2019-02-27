@@ -1,5 +1,5 @@
 # Selling plane tickets (web application for university project)
-This repository is back-end of web application which simulates selling plane tickets. 
+This repository is back-end of web application which simulates selling plane tickets, created with Java (Spring, Hibernate) and MySQL.
 
 <b>Application demonstration video:</b><br>
 [![demo app](https://i.ibb.co/jV9DKWy/ss.png)](https://www.youtube.com/watch?v=IZXtR-KBAM4 "demo app")
